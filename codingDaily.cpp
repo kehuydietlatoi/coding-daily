@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <unordered_map>
+#include <queue>
 using namespace std;
 // stolen from internet https://en.wikipedia.org/wiki/Hamming_weight
 // hamming weight problem
@@ -105,6 +106,24 @@ std::string simplifyPath(std::string path) {
         return "/";
 
     return ans;
+}
+//-------------------
+vector<int> rightSideView(TreeNode* root) {
+    std::vector<int> res;
+    queue<TreeNode*> q;
+    if(!root) return res;
+    q.push(root);
+    while (!q.empty()) {
+        int n = q.size();
+        for (size_t i = 1; i <= n; i++) {
+            TreeNode* temp = q.front();
+            q.pop();
+            if (i == n) res.push_back(temp->val);
+            if (temp->left != nullptr) q.push(temp->left);
+            if (temp->right != nullptr) q.push(temp->right);
+        }
+    }
+    return res;
 }
 //-------------------
 int main(){
