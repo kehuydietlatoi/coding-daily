@@ -126,6 +126,63 @@ vector<int> rightSideView(TreeNode* root) {
     return res;
 }
 //-------------------
+vector<int> shortestToChar(string s, char c) {
+    std::vector<int> res;
+    res.resize(s.length());
+    int prev = -99999999;
+
+    for (int i = 0; i < s.length(); i++){
+        if (s.at(i) == c) prev = i;
+        res[i] = abs(i-prev);
+    }
+    prev = 9999999;
+   for (int i = s.length()-1; i >= 0; i--) {
+       if (s.at(i) == c) {
+           prev = i;
+       }
+       // get the smaller one of the two answers
+       res[i] = min(res[i], prev - i);
+   }
+   return res;
+}
+//-------------------
+class Iterator {
+		struct Data;
+ 		Data* data;
+		Iterator(const vector<int>& nums);
+ 		Iterator(const Iterator& iter);
+
+ 		// Returns the next element in the iteration.
+		int next();
+
+		// Returns true if the iteration has more elements.
+		bool hasNext() const;
+	};
+    class PeekingIterator : public Iterator {
+public:
+	PeekingIterator(const vector<int>& nums) : Iterator(nums) {
+	    // Initialize any member here.
+	    // **DO NOT** save a copy of nums and manipulate it directly.
+	    // You should only use the Iterator interface methods.
+	    
+	}
+
+    // Returns the next element in the iteration without advancing the iterator.
+	int peek() {
+
+	}
+
+	// hasNext() and next() should behave the same as in the Iterator interface.
+	// Override them if needed.
+	int next() {
+
+	}
+
+	bool hasNext() const {
+
+	}
+};
 int main(){
+
 
 }
