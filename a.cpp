@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 struct TreeNode {
     int val;
@@ -41,6 +42,34 @@ int numberOfSteps(int num){
 
     }
     return res;
+}
+int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+    int N = grid.size();
+    if (grid[0][0] or grid[N-1][N-1]) return -1;
+    vector<pair<int, int>> coordinate = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 0}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+    queue<pair<int,int>> q;
+    q.push({0, 0});
+    grid[0][0] = 1;
+    int res = 0;
+    while (!q.empty()) {
+        res++;
+        for (int i = q.size(); i > 0; i--) {
+            int x = q.front().first;
+            int y = q.front().second;
+            q.pop();
+            if (x == N-1 and y == N-1) return res;
+            for (auto i = 0; i < coordinate.size(); ++i) {
+                int a = coordinate[i].first;
+                int b = coordinate[i].second;
+                if (x + a >= 0 and x + a < N and y + b >= 0 and y + b < N and !grid[x + a][y + b]) {
+                    // label as discovered
+                    grid[x + a][y + b] = 1;
+                    q.push({x + a, y + b});
+                }
+            }
+        }
+    }
+    return -1;
 }
 int main(void) {
     int ans;
