@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <set>
 using namespace std;
 struct TreeNode {
     int val;
@@ -70,6 +71,35 @@ int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
         }
     }
     return -1;
+}
+bool dfs(vector<vector<int>>& graph, vector<int>& colors, int i){
+    for (int neighbor : graph[i])
+    {
+        if (!colors[neighbor]) //unvisited
+        {
+            colors[neighbor] = -(colors[i]);
+            //continue traverse 
+            if (!dfs(graph, colors, neighbor)) return false;
+        }
+        else if(colors[neighbor] == colors[i]) // same color
+        {
+            return false;
+        }
+    }
+    return true;
+}
+bool isBipartite(vector<vector<int>>& graph){
+   int n = graph.size();
+   vector<int> colors(n, 0);
+   for (int i = 0; i < n; i++)
+   {
+       if (!colors[i] )
+       {
+           colors[i]=1;
+           if (!dfs(graph, colors, i)) return false;
+       }
+   }
+   return true;
 }
 int main(void) {
     int ans;
