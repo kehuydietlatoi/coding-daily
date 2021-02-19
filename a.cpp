@@ -137,7 +137,16 @@ vector<string> letterCasePermutation(string S) {
     dfs2(S, ans, 0, S.size());
     return ans;
 }
-
+int maxArea(vector<int>& height) {
+    int n = height.size();
+    int res = 0;
+    for (int i = 0; i < n ; i++){
+        for (size_t j = i+1; j < n; j++) {
+            res = max(res,abs(int(i-j))*min(height[i],height[j]));
+        }
+    }
+    return res;
+}
 int main(void) {
     int ans;
     ans = numberOfSteps(8);
