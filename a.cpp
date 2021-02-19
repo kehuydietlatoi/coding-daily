@@ -121,9 +121,23 @@ vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
        return res;
     return res;
 }
-vector<string> letterCasePermutation(string S) {
-    
+void dfs2(string S, vector<string> &ans, int i, int len) {
+    if (i < len) {
+        dfs2(S, ans, i+1, len);
+        if (isalpha(S[i])) {
+            S[i] = toupper(S[i]);
+            dfs2(S, ans, i+1, len);
+        }
+    } else ans.push_back(S);
 }
+vector<string> letterCasePermutation(string S) {
+    for (int i = 0; i < S.size(); i++)
+        S[i] = tolower(S[i]);
+    vector<string> ans;
+    dfs2(S, ans, 0, S.size());
+    return ans;
+}
+
 int main(void) {
     int ans;
     ans = numberOfSteps(8);
