@@ -137,7 +137,7 @@ vector<string> letterCasePermutation(string S) {
     dfs2(S, ans, 0, S.size());
     return ans;
 }
-int maxArea(vector<int>& height) {
+int bruteforcemaxArea(vector<int>& height) {
     int n = height.size();
     int res = 0;
     for (int i = 0; i < n ; i++){
@@ -147,10 +147,40 @@ int maxArea(vector<int>& height) {
     }
     return res;
 }
+int maxArea(vector<int>& height) {
+    int start = 0;
+    int end = height.size()-1;
+    int res = 0;
+    while(start < end){
+        res = max(res,abs(int(start-end))*min(height[start],height[end]));
+
+        if (height[start] < height[end]){
+            start++;
+        }
+        else end--;
+    }
+    return res;
+}
+int numberOfArithmeticSlices(vector<int>& A) {
+    int count = 0, ans = 0, diff = 999999999;
+    for (int i = 1; i < A.size(); i++) {
+        int newDiff = A[i] - A[i-1];
+        if (newDiff == diff) ans += count++;
+        else {
+            diff = newDiff;
+            count = 1;
+        }
+    }
+    return ans;
+}
 int main(void) {
     int ans;
-    ans = numberOfSteps(8);
-    ans = numberOfSteps(123);
-    ans = numberOfSteps(14);
+    std::vector<int> v;
+    v.push_back(1);v.push_back(2);v.push_back(3);v.push_back(4);
+    ans = numberOfArithmeticSlices(v);
+        std::cout << ans << '\n';
+    v.push_back(5);v.push_back(6);v.push_back(7);
+    ans = numberOfArithmeticSlices(v);
+    std::cout << ans << '\n';
     return 0;
 }
