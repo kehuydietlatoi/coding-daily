@@ -1,7 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <map>
 #include <set>
+#include <algorithm>
+
 using namespace std;
 struct TreeNode {
     int val;
@@ -78,7 +81,7 @@ bool dfs(vector<vector<int>>& graph, vector<int>& colors, int i){
         if (!colors[neighbor]) //unvisited
         {
             colors[neighbor] = -(colors[i]);
-            //continue traverse 
+            //continue traverse
             if (!dfs(graph, colors, neighbor)) return false;
         }
         else if(colors[neighbor] == colors[i]) // same color
@@ -100,6 +103,26 @@ bool isBipartite(vector<vector<int>>& graph){
        }
    }
    return true;
+}
+vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+    vector<pair<int, int>>  mapID;// key is id ,value is sum
+    for (int i = 0; i < mat.size(); i++){
+        int sum = 0;
+        for (int j = 0; j < mat[i].size(); j++){
+            sum += mat[i][j];
+        }
+        mapID.push_back(make_pair(i,sum));
+    }
+    sort(mapID.begin(), mapID.end());
+       vector<int> res;
+       for (int i = 0; i<k; i++){
+           res.push_back(mapID[i].second);
+       }
+       return res;
+    return res;
+}
+vector<string> letterCasePermutation(string S) {
+    
 }
 int main(void) {
     int ans;
