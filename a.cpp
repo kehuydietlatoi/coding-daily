@@ -173,6 +173,13 @@ int numberOfArithmeticSlices(vector<int>& A) {
     }
     return ans;
 }
+int brokenCalc(int X, int Y) {
+    if(X>=Y) return X -Y ;
+    if(X < Y and Y%2 == 0){
+        return 1 + brokenCalc(X, Y/2);
+    }
+    return 1 + brokenCalc(X, Y+1);
+}
 int main(void) {
     int ans;
     std::vector<int> v;
